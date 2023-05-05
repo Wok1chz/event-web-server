@@ -7,6 +7,7 @@ window.onload = function() {
    if(otpi != null){
         podp.remove()
    }
+
   };
 
 function eventSign(postId, userId, token){
