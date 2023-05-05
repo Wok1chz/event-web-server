@@ -1,0 +1,25 @@
+{% extends 'event/base.html' %}
+
+{% block content %}
+<h1> {{post.title}} </h1>
+ {% if post.logo %}
+<img id="img_logo" src="{{ post.logo.url }}">
+{% endif %}
+{{post.description|linebreaks}}
+{% for d in data %}
+        {% if d.user_id == user.pk and d.event_id == post.pk %}
+            <p>Вы записаны на данное мероприятие</p>
+            <button id="otpi" type="submit" onclick="eventDelete({{ post.pk }}, {{ user.pk }}, '{{ csrf_token }}' )"> Отписаться от мероприятия </button>
+        {% endif %}
+    {% endfor %}
+
+<!--{% for d in data %}-->
+<!--        {% if d.user_id == user.pk and d.event_id == post.pk %}-->
+<!--        <button type="submit" onclick="test({{ post.pk }}, {{ user.pk }}, '{{ csrf_token }}' )"> Отписаться от мероприятия </button>-->
+<!--        {% else %}-->
+<!--        {% endif %}-->
+<!--{% endfor %}-->
+ <button id="podp" type="submit" onclick="eventSign({{ post.pk }}, {{ user.pk }}, '{{ csrf_token }}' )"> Записаться на мероприятие </button>
+<a href="{% url 'pdf' %}"> Получить пдф </a>
+
+{% endblock %}

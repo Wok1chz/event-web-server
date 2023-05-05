@@ -1,0 +1,30 @@
+{% extends 'event/base.html' %}
+
+{% block content %}
+<h1 id="center_sched"> {{title}} </h1>
+
+<ul>
+
+    {%for p in posts %}
+    <li id="border_li">
+        <h2 id="event_name">{{p.title}}</h2>
+         {% if p.logo %}
+        <img id="img_logo" src="{{ p.logo.url }}">
+        {% endif %}
+        <p><strong>Описание:</strong> {{p.description}}</p>
+        <p><strong>Дата начала мероприятия:</strong> {{p.date_start}}</p>
+        <p><strong>Дата завершения мероприятия:</strong> {{p.date_end}}</p>
+
+        <p id="more_info"><a href=" {{ p.get_absolute_url }} ">Больше информации</a></p>
+<!--         <p><a href="#">Записаться на мероприятие</a></p>-->
+        {% for d in data %}
+        {% if d.user_id == user.pk and d.event_id == p.pk %}
+            <p>Вы записаны на данное мероприятие</p>
+
+        {% endif %}
+    {% endfor %}
+    </li>
+    <p></p>
+    {% endfor %}
+</ul>
+{% endblock %}

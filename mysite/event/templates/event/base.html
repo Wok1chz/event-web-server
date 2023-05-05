@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="csrf-token" content="{{ csrf_token }}">
+    <title>{{ title }}</title>
+    <link type="text/css" href="{% static 'event/css/styles.css' %}" rel="stylesheet"/>
+    <script type="text/javascript" src="{% static 'event/js/app.js' %}"></script>
+</head>
+<body>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+{% block mainmenu %}
+<ul id="navbar" class="navbar">
+    {%for m in menu %}
+<li ><a href="{% url m.url_name %}">{{m.title}}</a></li>
+    {% endfor %}
+    {% if request.user.is_authenticated %}
+    <li> <a href="{% url 'profile' %}">{{ user.username }} </a><a href="{% url 'logout' %}">Выйти</a></li>
+    {% else %}
+    <li><a href="{% url 'register' %}">Регистрация</a> <a href="{% url 'login' %}">Войти</a></li>
+    {% endif %}
+</ul>
+{% endblock mainmenu %}
+
+{% block content %}
+{% endblock %}
+
+
+{% if page_obj.has_other_pages %}
+<nav>
+    <ul>
+        {%for p in paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="pageno_li_selected"> {{ p }} </li>
+        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+        <li class="pageno_li">
+            <a href="?page={{ p }}">{{ p }} </a>
+        </li>
+        {%endif%}
+        {% endfor %}
+    </ul>
+</nav>
+   {%endif%}
+</body>
+</html>
