@@ -135,9 +135,9 @@ def logout_user(request):
 
 def event_sign(request):
     print(request.POST)
-    user_id = request.POST.get('userId');
+    user_id = request.POST.get('userId')
     event_id = request.POST.get('postId')
-    if len(EventUser.objects.filter(user_id=user_id, event_id= event_id)) >= 1:
+    if len(EventUser.objects.filter(user_id=user_id, event_id=event_id)) >= 1:
         print('Такие записи уже есть')
     else:
         data = EventUser()
