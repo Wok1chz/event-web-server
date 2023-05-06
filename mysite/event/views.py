@@ -134,24 +134,16 @@ def logout_user(request):
     return redirect('login')
 
 def event_sign(request):
-    print(request.POST)
     user_id = request.POST.get('userId')
     event_id = request.POST.get('postId')
-    if len(EventUser.objects.filter(user_id=user_id, event_id=event_id)) >= 1:
-        print('Такие записи уже есть')
-    else:
-        data = EventUser()
-        data.user_id = user_id
-        data.event_id = event_id
-        data.save()
-
+    EventUser.objects.get_or_create(user_id=user_id, event_id=event_id)
     return HttpResponse("POST request")
 
 def event_delete(request):
     print(request.POST)
     user_id = request.POST.get('userId')
     post_id = request.POST.get('postId')
-    data = EventUser.objects.filter(user_id=user_id, event_id=post_id)
+    data = EventUser.objects.filter(user_id=user_id, event=post_id)
     data.delete()
     return HttpResponse("POST request")
 

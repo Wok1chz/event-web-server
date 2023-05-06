@@ -22,7 +22,6 @@ class Event(models.Model):
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_id': self.pk})
 
-
     class Meta:
         verbose_name = 'Мероприятия'
         verbose_name_plural = 'Мероприятия'
@@ -34,5 +33,13 @@ class EventUser(models.Model):
     user_id = models.IntegerField()
     logo = models.ImageField(upload_to="logo")
     date_join = models.DateTimeField(auto_now_add=True)
+
+    @staticmethod
+    def has_sign(user_id, event_id):
+        if EventUser.objects.filter(user_id=user_id, event_id=event_id):
+            return True
+        else:
+            return False
+
 
 
