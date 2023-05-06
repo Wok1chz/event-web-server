@@ -1,22 +1,15 @@
-
 from django.contrib.auth import logout, login
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from json import loads
 from django.http import HttpResponse
 import io
-from django.http import FileResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 
 from .forms import *
-from .models import *
 from .utils import *
 
 
