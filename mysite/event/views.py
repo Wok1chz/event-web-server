@@ -140,7 +140,6 @@ def event_sign(request):
     return HttpResponse("POST request")
 
 def event_delete(request):
-    print(request.POST)
     user_id = request.POST.get('userId')
     post_id = request.POST.get('postId')
     data = EventUser.objects.filter(user_id=user_id, event=post_id)

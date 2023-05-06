@@ -34,12 +34,6 @@ class EventUser(models.Model):
     logo = models.ImageField(upload_to="logo")
     date_join = models.DateTimeField(auto_now_add=True)
 
-    @staticmethod
-    def has_sign(user_id, event_id):
-        if EventUser.objects.filter(user_id=user_id, event_id=event_id):
-            return True
-        else:
-            return False
 
 
 
